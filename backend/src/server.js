@@ -37,10 +37,29 @@ app.get('/api/health', (req, res) =>
   res.json({ status: 'ok', timestamp: new Date().toISOString() })
 );
 
-// ─── 404 Handler ─────────────────────────────────────────────────────────────
-app.use((req, res) => {
-  res.status(404).json({ message: 'Route not found' });
+// ─── Serve Frontend & 404 Handler ─────────────────────────────────────────────
+const path = require('path');
+
+// First, handle 404 for any unhandled /api routes
+app.use('/api/*', (req, res) => {
+  res.status(404).json({ message: 'API Route not found' });
 });
+
+if (process.env.NODE_ENV === 'production') {
+  // Serve static files from frontend/dist
+  const frontendPath = path.join(__dirname, '../../frontend/dist');
+  app.use(express.static(frontendPath));
+
+  // Catch-all route to serve index.html for React Router
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(frontendPath, 'index.html'));
+  });
+} else {
+  // Development 404 handler for all other routes
+  app.use((req, res) => {
+    res.status(404).json({ message: 'Route not found' });
+  });
+}
 
 // ─── Global Error Handler ─────────────────────────────────────────────────────
 app.use((err, req, res, next) => {
