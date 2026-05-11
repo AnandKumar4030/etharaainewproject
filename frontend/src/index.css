@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Variables (Light / Dark) ──────────────────────────────────────────── */
+:root {
+  --bg:        #f8fafc;
+  --surface:   #ffffff;
+  --surface-2: #f1f5f9;
+  --surface-3: #e2e8f0;
+  --border:    #e2e8f0;
+  --text-1:    #0f172a;
+  --text-2:    #475569;
+  --text-3:    #94a3b8;
+
+  --accent-brand-bg:   #e0e7ff;
+  --accent-brand-text: #4f46e5;
+  --accent-brand-border: #c7d2fe;
+
+  --accent-blue-bg:    #dbeafe;
+  --accent-blue-text:  #2563eb;
+  --accent-blue-border:#bfdbfe;
+
+  --accent-green-bg:   #dcfce7;
+  --accent-green-text: #16a34a;
+  --accent-green-border:#bbf7d0;
+
+  --accent-yellow-bg:  #fef9c3;
+  --accent-yellow-text:#ca8a04;
+  --accent-yellow-border:#fef08a;
+
+  --accent-red-bg:     #fee2e2;
+  --accent-red-text:   #dc2626;
+  --accent-red-border: #fecaca;
+
+  --accent-purple-bg:   #f3e8ff;
+  --accent-purple-text: #9333ea;
+  
+  --accent-orange-bg:   #ffedd5;
+  --accent-orange-text: #ea580c;
+}
+
+.dark {
+  --bg:        #030712;
+  --surface:   #111827;
+  --surface-2: #1f2937;
+  --surface-3: #374151;
+  --border:    #1f2937;
+  --text-1:    #f3f4f6;
+  --text-2:    #9ca3af;
+  --text-3:    #4b5563;
+
+  --accent-brand-bg:     rgba(49, 46, 129, 0.4);
+  --accent-brand-text:   #818cf8;
+  --accent-brand-border: rgba(67, 56, 202, 0.4);
+
+  --accent-blue-bg:      rgba(30, 58, 138, 0.4);
+  --accent-blue-text:    #60a5fa;
+  --accent-blue-border:  rgba(30, 64, 175, 0.4);
+
+  --accent-green-bg:     rgba(20, 83, 45, 0.4);
+  --accent-green-text:   #4ade80;
+  --accent-green-border: rgba(22, 101, 52, 0.4);
+
+  --accent-yellow-bg:    rgba(113, 63, 18, 0.4);
+  --accent-yellow-text:  #facc15;
+  --accent-yellow-border:rgba(133, 77, 14, 0.4);
+
+  --accent-red-bg:       rgba(127, 29, 29, 0.4);
+  --accent-red-text:     #f87171;
+  --accent-red-border:   rgba(153, 27, 27, 0.4);
+
+  --accent-purple-bg:    rgba(88, 28, 135, 0.4);
+  --accent-purple-text:  #c084fc;
+  
+  --accent-orange-bg:    rgba(124, 45, 18, 0.4);
+  --accent-orange-text:  #fb923c;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────────── */
+@layer base {
+  body {
+    background: var(--bg);
+    color: var(--text-1);
+    @apply font-sans antialiased;
+  }
+  ::-webkit-scrollbar { @apply w-1.5; }
+  ::-webkit-scrollbar-track { background: var(--surface-2); }
+  ::-webkit-scrollbar-thumb { background: var(--surface-3); @apply rounded-full; }
+}
+
+/* ─── Components ─────────────────────────────────────────────────────────────── */
+@layer components {
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95;
+  }
+  .btn-primary  { @apply btn bg-brand-600 hover:bg-brand-500 text-white focus:ring-brand-500 focus:ring-offset-transparent; }
+  .btn-secondary {
+    @apply btn text-sm font-medium;
+    background: var(--surface-2);
+    color: var(--text-1);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { background: var(--surface-3); }
+  .btn-danger   { @apply btn bg-red-600 hover:bg-red-500 text-white focus:ring-red-500 focus:ring-offset-transparent; }
+  .btn-ghost    { @apply btn bg-transparent; color: var(--text-2); }
+  .btn-ghost:hover { background: var(--surface-2); color: var(--text-1); }
+  .btn-sm       { @apply px-3 py-1.5 text-xs rounded-md; }
+
+  /* Cards */
+  .card {
+    @apply rounded-xl p-6 shadow-lg;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .card-sm {
+    @apply rounded-lg p-4;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .stat-card {
+    @apply card-sm flex flex-col gap-1 cursor-default;
+    transition: border-color 0.2s;
+  }
+  .stat-card:hover { border-color: var(--surface-3); }
+
+  /* Inputs */
+  .input {
+    @apply w-full rounded-lg px-3 py-2.5 text-sm transition-colors focus:outline-none focus:ring-1 focus:ring-brand-500;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-1);
+  }
+  .input::placeholder { color: var(--text-3); }
+  .input:focus { border-color: #6366f1; }
+
+  /* Labels */
+  .label {
+    @apply block text-sm font-medium mb-1.5;
+    color: var(--text-2);
+  }
+
+  /* Badges */
+  .badge { @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold; border: 1px solid transparent; }
+  .badge-todo        { @apply badge; background: var(--surface-2); color: var(--text-2); border-color: var(--border); }
+  .badge-in_progress { @apply badge; background: var(--accent-blue-bg); color: var(--accent-blue-text); border-color: var(--accent-blue-border); }
+  .badge-done        { @apply badge; background: var(--accent-green-bg); color: var(--accent-green-text); border-color: var(--accent-green-border); }
+  .badge-low         { @apply badge; background: var(--surface-2); color: var(--text-2); border-color: var(--border); }
+  .badge-medium      { @apply badge; background: var(--accent-yellow-bg); color: var(--accent-yellow-text); border-color: var(--accent-yellow-border); }
+  .badge-high        { @apply badge; background: var(--accent-red-bg); color: var(--accent-red-text); border-color: var(--accent-red-border); }
+
+  /* Accent Helper Classes */
+  .accent-brand  { background: var(--accent-brand-bg); color: var(--accent-brand-text); border: 1px solid var(--accent-brand-border); }
+  .accent-blue   { background: var(--accent-blue-bg); color: var(--accent-blue-text); border: 1px solid var(--accent-blue-border); }
+  .accent-green  { background: var(--accent-green-bg); color: var(--accent-green-text); border: 1px solid var(--accent-green-border); }
+  .accent-yellow { background: var(--accent-yellow-bg); color: var(--accent-yellow-text); border: 1px solid var(--accent-yellow-border); }
+  .accent-red    { background: var(--accent-red-bg); color: var(--accent-red-text); border: 1px solid var(--accent-red-border); }
+  .accent-purple { background: var(--accent-purple-bg); color: var(--accent-purple-text); border: 1px solid var(--accent-purple-border); }
+  .accent-orange { background: var(--accent-orange-bg); color: var(--accent-orange-text); border: 1px solid var(--accent-orange-border); }
+
+  /* Sidebar links */
+  .sidebar-link {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200;
+    color: var(--text-2);
+  }
+  .sidebar-link:hover { background: var(--surface-2); color: var(--text-1); }
+  .sidebar-link.active {
+    background: var(--accent-brand-bg);
+    color: var(--accent-brand-text);
+    border: 1px solid var(--accent-brand-border);
+  }
+
+  /* Kanban */
+  .kanban-column {
+    @apply rounded-xl p-3 flex flex-col gap-2 min-h-64 min-w-72;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+  }
+  .kanban-column.drag-over {
+    @apply ring-2 ring-brand-500;
+  }
+  .kanban-card {
+    @apply rounded-lg p-3 cursor-grab active:cursor-grabbing transition-all duration-150;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .kanban-card:hover { border-color: var(--surface-3); @apply shadow-md; }
+  .kanban-card.dragging { @apply opacity-40 scale-95; }
+}
+
+* { scrollbar-width: thin; scrollbar-color: var(--surface-3) var(--surface-2); }
