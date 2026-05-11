@@ -52,7 +52,12 @@ if (process.env.NODE_ENV === 'production') {
 
   // Catch-all route to serve index.html for React Router
   app.get('*', (req, res) => {
-    res.sendFile(path.join(frontendPath, 'index.html'));
+    const indexPath = path.join(frontendPath, 'index.html');
+    res.sendFile(indexPath, (err) => {
+      if (err) {
+        res.status(404).send('Frontend build not found. Make sure the root directory in Railway is set to "/" and the project has been fully deployed.');
+      }
+    });
   });
 } else {
   // Development 404 handler for all other routes
